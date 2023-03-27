@@ -15,6 +15,7 @@ const Container = styled('div', {
     height: 'max-content',
     padding: '1rem 0',
     display: 'flex',
+    flexWrap: 'wrap',
     justifyContent: 'center',
     gap: 10,
     background: '#d62020'
@@ -22,8 +23,8 @@ const Container = styled('div', {
 
 const Box = styled('div', {
     position: 'relative',
-    height: '15rem',
-    width: '15rem',
+    height: 'calc(14vw * 0.8)',
+    width: 'calc(14vw * 0.8)',
 })
 
 const SharedStyles = {

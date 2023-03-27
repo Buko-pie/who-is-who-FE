@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { type, clear, pause } from '../Functions/type';
 import styled from 'styled-components';
-import { BoxesInBox } from '../Animated';
 
 interface TypeProps{
     wait?: number,
@@ -27,9 +26,18 @@ const AppNav = styled.div`
     display: flex;
     align-items: center;
 `
+const Terminal = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
+const TerminalContainer = styled.div`
+    width: 100%;
+    display: content;
+    align-items: center;
+`
 
 const CRT = styled.div`
-    min-width: 80ch; /* This makes 80 monospace characters fit on the screen */
     height: calc(87ch * 0.8);
     font-size: max(
         1rem,
@@ -69,7 +77,15 @@ export default function App() {
         await pause(0.1);
         const elContent = document.querySelector('#terminalContent');
         ClearContent();
-        await type('ROADMAP-STAGE 1', {  wait: 0, styles: 'font-size: 2.5rem;'}, elContent);
+        await type(
+            'ROADMAP-STAGE 1',
+            {
+                wait: 0,
+                initialWait: 0,
+                styles: 'font-size: 2.5rem; display: flex;'
+            },
+            elContent
+        );
 
         await type([
                 '   ART IDEATION.............................[✓]',
@@ -88,7 +104,7 @@ export default function App() {
             ],
             {
                 wait: 0,
-                styles: 'font-size: 1.5rem;'
+                styles: 'font-size: 1.5rem;',
             },
             elContent
         );
@@ -107,14 +123,9 @@ export default function App() {
             }}>
                 <CRT id='crt'>
                     <div className="scanline"></div>
-                    <div className="terminal">
-                        <AppNav>
-                            <div>
-                                <span onClick={()=>{setTab(0); FillRM();}} className={tab === 0 ? 'NavBtnA' : 'NavBtn'}>ROADMAP</span>|<span onClick={()=>{setTab(1); ClearContent();}} className={tab === 1 ? 'NavBtnA' : 'NavBtn'}>TEAM</span>
-                            </div>
-                        </AppNav>
-                        {tab === 1 ? <BoxesInBox/> : <div id='terminalContent' />}
-                    </div>
+                    <Terminal className="terminal">
+                        <TerminalContainer id='terminalContent' />
+                    </Terminal>
                 </CRT>
 
             </div>

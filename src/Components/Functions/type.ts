@@ -22,9 +22,17 @@ function scroll(el: any = document.querySelector(".terminal")) {
 async function type(
 	text : string | string[],
 	options: TypeProps,
-	container: any = document.querySelector(".terminal")
+	container: any = document.querySelector(".terminal"),
+	self?: any
 ) {
-	if (!text) return Promise.resolve();
+	if (self && self.abort){
+		self.abort = false;
+		return;
+	}
+
+	if (!text || text.length === 0){
+		return Promise.resolve();
+	}
 
 	let {
 		wait = 30,
@@ -41,7 +49,11 @@ async function type(
 
 	// If text is an array, e.g. type(['foo', 'bar'])
 	if (processChars && Array.isArray(text)) {
-		for (const t of text)
+		for (const t of text){
+			if (self && self.abort){
+				self.abort = false;
+				return;
+			}
 			await type(
 				t,
 				{
@@ -51,11 +63,22 @@ async function type(
 				},
 				container
 			);
+		}
+
 		return;
 	}
 
 	let interval: any;
+
 	return new Promise(async (resolve) => {
+		if (self && self.abort){
+			console.log('brurruur')
+			self.abort = false;
+			clearInterval(interval);
+			interval = null;
+			resolve('');
+		}
+
 		if (interval) {
 			clearInterval(interval);
 			interval = null;
@@ -71,7 +94,6 @@ async function type(
 		}
 
 		if (styles) {
-			console.log(styles);
 			typer.setAttribute('style', styles);
 		}
 		// Handy if reusing the same container

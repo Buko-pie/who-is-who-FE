@@ -1,86 +1,51 @@
 export default [
     {
         name: 'Max Pulso',
-        description: 'Founder',
+        role: 'Founder',
         css: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-        height: 200,
+        desc: 'Name:\n> Max Pulso\nRole:\n> Founder\nDescription:\n> Founder of Who is Who',
+        pic: 'cyberking.png'
     },
     {
         name: 'Joseph',
-        description: 'Co-Founder',
+        role: 'Co-Founder',
         css: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-        height: 400,
+        desc: 'Name:\n\> Joseph\nRole:\n> Co-Founderr\nDescription:\n> Co-Founder of Who is Who',
+        pic: '0061.png'
     },
     {
         name: 'UTO4KA',
-        description: 'Co-Founder',
+        role: 'Co-Founder',
         css: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
-        height: 400,
+        desc: 'Name:\n> UTO4KA\nRole:\n> Co-Founder\nDescription:\n> Co-Founder of Who is Who',
+        pic: '0057.png'
     },
     {
-        name: 'Shakewel',
-        description: 'Co-Founder',
+        name: 'Shakewell',
+        role: 'Co-Founder',
         css: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        height: 400,
+        desc: 'Name:\n> Shakewell\nRole:\n> Co-Founder\nDescription:\n> Co-Founder of Who is Who',
+        pic: '0105.png'
     },
     {
         name: 'Julz',
-        description: 'Fullstack Artist',
+        role: 'Fullstack Artist',
         css: 'linear-gradient(135deg, #E3FDF5 0%, #FFE6FA 100%)',
-        height: 400,
+        desc: 'Name:\n> Julz\nRole:\n> Fullstack Artist\nDescription:\n> Fullstack Artist of Who is Who',
+        pic: 'IMG_1412.jpg'
     },
     {
         name: 'Kennie',
-        description: 'Blockchain Dev',
+        role: 'Blockchain Dev',
         css: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
-        height: 400,
+        desc: 'Name:\n> Kennie\nRole:\n> Blockchain Developer\nDescription:\n> Blockchain Dev of Who is Who',
+        pic: '4.png'
     },
     {
         name: 'Jambs',
-        description: 'Front-end Dev',
+        role: 'Front-end Dev',
         css: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
-        height: 200,
-    },
-    {
-        name: 'John Doe',
-        description: 'Marketing',
-        css: 'linear-gradient(135deg, #ebc0fd 0%, #d9ded8 100%)',
-        height: 400,
-    },
-    {
-        name: 'Jane Doe',
-        description: 'Marketing',
-        css: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
-        height: 200,
-    },
-    {
-        name: 'Mark Doe',
-        description: 'Marketing',
-        css: 'linear-gradient(135deg, #96fbc4 0%, #f9f586 100%)',
-        height: 400,
-    },
-    {
-        name: 'Steve Doe',
-        description: 'Marketing',
-        css: 'linear-gradient(135deg, #FFFEFF 0%, #D7FFFE 100%)',
-        height: 200,
-    },
-    {
-        name: 'James Doe',
-        description: 'Marketing',
-        css: 'linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%)',
-        height: 400,
-    },
-    {
-        name: 'Maxwell',
-        description: 'Cat',
-        css: 'linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%)',
-        height: 400,
-    },
-    {
-        name: 'Bob',
-        description: 'Guy',
-        css: 'linear-gradient(135deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%)',
-        height: 200,
+        desc: 'Name:\n> Jambs\nRole:\n Front-end Developer\nDescription:\n> Front-end Dev of Who is Who',
+        pic: '0119.png'
     },
 ]

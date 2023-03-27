@@ -58,6 +58,9 @@ const MintBtn = styled.button`
     height: 1.9rem;
     clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
     background: radial-gradient(#47bdfd 30%, #1b57e2);
+    font-family: 'aAnotherTag';
+    font-size: 2rem;
+    letter-spacing: 5px;
 `
 
 const GlowWrapper = styled.div<{color1?: string, color2?: string}>`
