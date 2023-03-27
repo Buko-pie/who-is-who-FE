@@ -3,6 +3,33 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+@font-face {
+  font-family: 'ADrip';
+  src: url('../src/Assets/Fonts/adrip/adrip1.eot'); /* IE9 Compat Modes */
+  src: url('../src/Assets/Fonts/adrip/adrip1.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../src/Assets/Fonts/adrip/adrip1.woff') format('woff'), /* Modern Browsers */
+       url('../src/Assets/Fonts/adrip/adrip1.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../src/Assets/Fonts/adrip/adrip1.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'aAnotherTag';
+  src: url('../src/Assets/Fonts/aAnotherTag/aAnotherTag.eot'); /* IE9 Compat Modes */
+  src: url('../src/Assets/Fonts/aAnotherTag/aAnotherTag.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../src/Assets/Fonts/aAnotherTag/aAnotherTag.woff') format('woff'), /* Modern Browsers */
+       url('../src/Assets/Fonts/aAnotherTag/aAnotherTag.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../src/Assets/Fonts/aAnotherTag/aAnotherTag.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'donGraffiti';
+  src: url('../src/Assets/Fonts/donGraffiti/donGraffiti.eot'); /* IE9 Compat Modes */
+  src: url('../src/Assets/Fonts/donGraffiti/donGraffiti.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../src/Assets/Fonts/donGraffiti/donGraffiti.woff') format('woff'), /* Modern Browsers */
+       url('../src/Assets/Fonts/donGraffiti/donGraffiti.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../src/Assets/Fonts/donGraffiti/donGraffiti.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
 .App {
     width: 100%;
     margin: 0 auto;
@@ -90,6 +117,7 @@ input, select, button {
     height: 3rem;
     display: flex;
     align-items: center;
+    flex-flow: row wrap;
     background-color: #31cd66;
 }
 
@@ -434,20 +462,42 @@ input, select, button {
   animation: scanline 10s linear infinite;
 }
 
-.terminal .NavBtn {
-  padding: 0 1rem;
+.NavBtn {
+  padding: 0.5rem 1rem;
   cursor: pointer;
 }
 
-.terminal .NavBtn:hover {
-  background-color: rgb(71, 71, 71);
+.NavBtn:hover {
+  font-weight: 600;
+  color: #e63525;
+  text-shadow: 2px 2px cyan;
+  /* background-color: rgb(71, 71, 71); */
 }
 
-.terminal .NavBtnA {
-  padding: 0 1rem;
-  background-color: white;
-  color: black;
-  cursor: pointer;
+.NavBtnA {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  color: #e63525;
+  text-shadow: 2px 2px cyan;
+}
+
+.BoxItemA {
+  box-shadow: 0px 0px 5px 10px white;
+}
+
+.BoxItem:hover {
+  box-shadow: 0px 0px 5px 10px white;
+}
+
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 @keyframes cursor {
