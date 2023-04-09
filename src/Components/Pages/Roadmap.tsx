@@ -80,34 +80,46 @@ export default function App() {
         await type(
             'ROADMAP-STAGE 1',
             {
-                wait: 0,
+                wait: 5,
                 initialWait: 0,
-                styles: 'font-size: 2.5rem; display: flex;'
+                styles: 'font-size: 2.5rem; display: flex;',
+                processChars: true,
             },
             elContent
         );
 
         await type([
-                '   ART IDEATION.............................[✓]',
-                '   CRAFTING THE ART.........................[✓]',
-                '   WEBSITE UI/UX DRAFT......................[✓]',
-                '   WEBSITE DEVELOPMENT......................[✓]',
-                '   WEBSITE LAUNCH...........................[ ]',
-                '   MINT [TBA]...............................[ ]',
-                '   REVEAL...................................[ ]',
-                '   RARE HOLDERS REWARD DROPS [PHYSICAL].....[ ]',
-                '   3D COMPETITION WITH ETH PRIZES...........[ ]',
-                '   PHYSICAL COPY [CREATION STAGE]...........[ ]',
-                '\n',
-                '\n',
-                '\n',
+                '\tART IDEATION.............................[✓]',
+                '\tCRAFTING THE ART.........................[✓]',
+                '\tWEBSITE UI/UX DRAFT......................[✓]',
+                '\tWEBSITE DEVELOPMENT......................[✓]',
+                '\tWEBSITE LAUNCH...........................[ ]',
+                '\tMINT [TBA]...............................[ ]',
+                '\tREVEAL...................................[ ]',
+                '\tRARE HOLDERS REWARD DROPS [PHYSICAL].....[ ]',
+                '\t3D COMPETITION WITH ETH PRIZES...........[ ]',
+                '\tPHYSICAL COPY [CREATION STAGE]...........[ ]',
             ],
             {
-                wait: 0,
+                wait: 5,
+                initialWait: 0,
+                finalWait: 0,
+                lineWait: 0,
                 styles: 'font-size: 1.5rem;',
+                processChars: true,
             },
             elContent
         );
+
+        await type([
+                '\n',
+            ],
+            {
+                lineWait: 999999,
+                styles: 'font-size: 1.5rem;',
+            },
+            elContent
+        )
     }
 
     useEffect(() => {

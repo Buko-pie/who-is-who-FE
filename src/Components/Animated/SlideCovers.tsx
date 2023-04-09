@@ -96,12 +96,34 @@ const BackBox = styled(animated.div, {
 })
 
 const front = [
-    'blackplasticwho.png',
-    'blackplasticwho.png',
-    'blackplasticwho.png',
-    'blackplasticwho.png',
-    'blackplasticwho.png',
-    'blackplasticwho.png',
+    '1.png',
+    '2.png',
+    '3.png',
+    '4.png',
+    '0022.png',
+    '0031.png',
+    '0036.png',
+    '0057.png',
+    '0061.png',
+    '0102.png',
+    '0105.png',
+    '0115.png',
+    '0116.png',
+    '0117.png',
+    '0119.png',
+    '0123.png',
+    '0124.png',
+    'black_ninja.png',
+    'ChickenDinner.png',
+    'Cyber.png',
+    'cyberking.png',
+    'cybersneak.png',
+    'IMG_1412.jpg',
+    'profikle.jfif',
+    'smart.png',
+    'Sneak2.png',
+    'statue1.png',
+    'Whiteangel.png',
 ]
 
 enum Directions {
@@ -118,11 +140,26 @@ const rotations = [
     Directions.West
 ]
 
+function GetRandomNumbersFromImgs(maxNum: number){
+    const numbers = Array.from({ length: maxNum }, (_, i) => i); // create an array of numbers from 1 to maxNum
+    const selectedNumbers = [];
+
+    while (selectedNumbers.length < 6 && numbers.length > 0) { // select 6 unique numbers or until all numbers have been selected
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        const randomNumber = numbers[randomIndex];
+        selectedNumbers.push(randomNumber);
+        numbers.splice(randomIndex, 1); // remove selected number from array
+    }
+
+    return selectedNumbers;
+  }
+
 
 export default function App() {
     const trailCount = useRef(0);
     const isCovered = useRef(false);
-    const randomRots = useRef(['', '', '', '', '', '']);
+    const [randomImgNum, setRandomImgNum] = useState([0, 1, 2, 3, 4, 5]);
+
     const [randoDirs, setRandoDirs] = useState([
         rotations[Math.floor(Math.random() * rotations.length)],
         rotations[Math.floor(Math.random() * rotations.length)],
@@ -132,12 +169,7 @@ export default function App() {
         rotations[Math.floor(Math.random() * rotations.length)]
     ]);
 
-
-    useEffect(() => {
-        handleClick();
-    }, []);
-
-    const [trail, api] = useTrail(front.length, i => ({
+    const [trail, api] = useTrail(randomImgNum.length, i => ({
         clipPathN: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
         clipPathS: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
         clipPathE: 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)',
@@ -148,19 +180,19 @@ export default function App() {
         },
         onRest: () => {
             trailCount.current++;
-            if (trailCount.current === front.length - 1){
+            if (trailCount.current === randomImgNum.length - 1){
                 if(!isCovered.current){
                     setTimeout(() => {
-                        handleClick();
+                        HandleClick();
                     }, 3000);
                 }else{
-                    handleClick();
+                    HandleClick();
                 }
             }
         },
     }));
 
-    const handleClick = () => {
+    function HandleClick(){
         var newRandRots = []
         for (let i = 0; i < randoDirs.length; i++) {
             newRandRots.push(rotations[Math.floor(Math.random() * rotations.length)])
@@ -175,6 +207,8 @@ export default function App() {
                 clipPathW: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)',
                 value: 100
             })
+
+            setRandomImgNum(GetRandomNumbersFromImgs(front.length));
             isCovered.current = false
         } else {
             api.start({
@@ -188,7 +222,7 @@ export default function App() {
         }
     }
 
-    const setDir = (dir: Directions, clipPaths: SpringValue[]) => {
+    function SetDir (dir: Directions, clipPaths: SpringValue[]) {
         switch (dir) {
             case Directions.North:
                 return clipPaths[0];
@@ -204,6 +238,10 @@ export default function App() {
         }
     }
 
+    useEffect(() => {
+        HandleClick();
+    }, []);
+
     return (
         <AppContainer>
         <Container>
@@ -211,11 +249,11 @@ export default function App() {
                 <Box key={i}>
                     <FrontBox key={i+'f'}>
                         <ImgContainer style={{
-                            backgroundImage: `url(${require('../../Assets/images/' + front[i])})`
+                            backgroundImage: `url(${require('../../Assets/images/profiles/' + front[randomImgNum[i]])})`
                         }}>
                             <BoxInsetShadow />
                             <Cover style={{
-                                clipPath: setDir(randoDirs[i], [clipPathN, clipPathS, clipPathE, clipPathW]),
+                                clipPath: SetDir(randoDirs[i], [clipPathN, clipPathS, clipPathE, clipPathW]),
                             }} />
                         </ ImgContainer>
                     </FrontBox>

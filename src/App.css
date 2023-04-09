@@ -1187,7 +1187,17 @@ input, select, button {
   padding: 0.5rem 1rem;
   font-weight: 600;
   color: #e63525;
-  text-shadow: 2px 2px cyan;
+  text-shadow: 2px 2px #19cada;
+}
+
+.BtnTxt {
+  cursor: pointer;
+}
+
+.BtnTxt:hover {
+  font-weight: 600;
+  color: #31cd66;
+  text-shadow: 2px 2px #ce3299;
 }
 
 .BoxItemA {

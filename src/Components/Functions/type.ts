@@ -43,7 +43,7 @@ async function type(
 		styles = "",
 		useContainer = false,
 		stopBlinking = true,
-		processChars = true,
+		processChars = false,
 		clearContainer = false,
 	} = options;
 
@@ -72,7 +72,6 @@ async function type(
 
 	return new Promise(async (resolve) => {
 		if (self && self.abort){
-			console.log('brurruur')
 			self.abort = false;
 			clearInterval(interval);
 			interval = null;
@@ -109,17 +108,20 @@ async function type(
 			await pause(initialWait / 1000);
 		}
 
-		let queue:string | string[] = text;
+		let queue:any = text;
 
 		if (processChars && typeof text === 'string') {
 			queue = text.split("");
+		}
+		else{
+			queue = Array.from(text);
 		}
 
 		let prev:any;
 
 		// Use an interval to repeatedly pop a character from the queue and type it on screen
 		interval = setInterval(async () => {
-			if (queue.length && Array.isArray(queue)) {
+			if (queue.length) {
 				let char = queue.shift();
 
 				// This is an optimisation for typing a large number of characters on the screen.
@@ -140,10 +142,7 @@ async function type(
 						typer.appendChild(prev);
 					}
 				}
-
-				let element = processChars
-					? getChar(char)
-					: char;
+				let element = processChars ? getChar(char) : char;
 
 				if (element && typeof element === 'object') {;
 					typer.appendChild(element);
@@ -156,9 +155,15 @@ async function type(
 				}
 				prev = element;
 			} else {
-				// When the queue is empty, clean up the interval
+				// When the queue is empty, clean up the interva
+
 				clearInterval(interval);
 				await pause(finalWait / 1000);
+
+				if(!processChars){
+					typer.innerHTML = text;
+				}
+
 				if (stopBlinking) {
 					typer.classList.remove("active");
 				}
@@ -170,6 +175,7 @@ async function type(
 
 function getChar(char: string | undefined) {
 	let result;
+
 	if (typeof char === "string") {
 		if (char === "\n") {
 			result = document.createElement("br");
@@ -182,15 +188,12 @@ function getChar(char: string | undefined) {
 			space.innerHTML = "&nbsp;";
 			space.classList.add("char");
 			result = space;
-		}else if (char === "✓") {
+		} else if (char === "✓") {
 			let span = document.createElement("span");
 			span.classList.add("char");
 			span.innerHTML = '<span class="font-lime">' + char + '</span>';
 			result = span;
 		} else {
-			let span = document.createElement("span");
-			span.classList.add("char");
-			span.textContent = char;
 			result = char;
 		}
 	}

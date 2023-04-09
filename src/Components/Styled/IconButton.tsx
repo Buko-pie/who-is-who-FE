@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SiTwitter, SiDiscord, SiFacebook, SiTelegram } from 'react-icons/si';
+import { SiTwitter, SiDiscord, SiFacebook, SiTelegram, SiOpensea } from 'react-icons/si';
 
 const IconsList = {
+    opensea : {icon: SiOpensea, gradient: '144deg, #2081e2, #15b2e5, 50%,#2bcde4'},
     twitter : {icon: SiTwitter, gradient: '144deg, #2e00fb, #0043fb, 50%,#3378ef'},
     discord : {icon: SiDiscord, gradient: '144deg, #AF40FF, #5B42F3, 50%,#db60fd'},
     facebook: {icon: SiFacebook, gradient: '144deg, #008deb, #0099eb, 50%,#0099eb'},

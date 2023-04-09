@@ -7,7 +7,7 @@ import {
   animated,
   useSpringRef,
 } from '@react-spring/web';
-import { type, clear } from '../Functions/type';
+import { type, clear, pause } from '../Functions/type';
 import styled from 'styled-components';
 
 import data from '../Data/team';
@@ -43,6 +43,7 @@ const Container = styled(animated.div)`
     will-change: width, height;
     background: #00000034;
     overflow-x: auto;
+    z-index: 0;
 
     &:before{
         content: " ";
@@ -62,6 +63,7 @@ const Content = styled.div`
     width: 100%;
     display: grid;
     grid-template-columns: 75% 25%;
+    z-index: 1;
 
     @media (max-width: 1200px) {
         grid-template-columns: 1fr;
@@ -71,14 +73,11 @@ const Content = styled.div`
 
 const DescBox = styled.div`
     display: content;
-    align-items: center;
     font-size: 1.1rem;
     margin: 1rem;
     padding: 1rem;
     background-color: black;
     border-width: 2px;
-    white-space: pre-line;
-    overflow-y: auto;
 `
 
 const BoxesContainer = styled.div`
@@ -140,6 +139,15 @@ const TeamD = styled.div`
 const Tml = {
     abort: false,
     stop(){ this.abort = true },
+    async doType(text: string | string [], options: TypeProps, container: any){
+        if(this.abort) this.abort = false;
+        await type(text, options, container, this)
+    }
+}
+
+const TmlS = {
+    abort: false,
+    stop(){ this.abort = true },
     doType(text: string | string [], options: TypeProps, container: any){
         if(this.abort) this.abort = false;
         type(text, options, container, this)
@@ -154,8 +162,8 @@ const Box: React.FC<{style: any, item: any, index: number, img?: string}> = ({st
         clear(n);
         clear(d);
 
-        type(`▌${item.name}`, { initialWait: (1200 + (index * 50)) }, n);
-        type(`<${item.role}>`, { initialWait: (1300 + (index * 50)) }, d);
+        type(`▌${item.name}`, { initialWait: (1200 + (index * 50)), processChars: true }, n);
+        type(`<${item.role}>`, { initialWait: (1300 + (index * 50)), processChars: true }, d);
     }
 
     useEffect(() => {
@@ -202,7 +210,7 @@ export default function App() {
             transform: 'translate(0, -100%)',
         },
         to: {
-            transform: 'translate(0, 0%);',
+            transform: 'translate(0, 0%)',
         },
     });
 
@@ -222,30 +230,59 @@ export default function App() {
         1,
     ]);
 
-    function ClearContent(index: number) {
+    function ClearContent(index: number, item: any) {
         if (activeProfile !== index)
-        {
-            setInterval(() => {
-                Tml.stop.bind(Tml.stop());
-            }, 100);
-            const elContent = document.querySelector('#terminalContent');
-            clear(elContent);
+        {;
+
+            if(activeProfile <= -1){
+                const elContent = document.querySelector('#terminalContent');
+                clear(elContent);
+                TypeTerminal(item, index);
+            }
         }
     };
 
-    function TypeTerminal(item: any) {
-        const elContent = document.querySelector('#terminalContent');
-        clear(elContent);
-        Tml.doType.bind(Tml.doType(
-            item.desc,
-            {
-                wait: 0,
-                initialWait: 0,
-                styles: 'white-space: pre-line;'
-            },
-            elContent
-        ));
+    async function TypeTerminal(item: any, index: number) {
+        if(activeProfile !== index){
+            const elContent = document.querySelector('#terminalContent');
+            clear(elContent);
+
+            let descString = item.desc;
+
+            if(item.socials){
+                descString += "\n\nSOCIALS:"
+                for (const social of item.socials){
+                    descString += `\n<a href="${social.link}" target="_blank" style="color: ${social.color};">[[${social.name}]]</a>`;
+                }
+            }
+
+            Tml.doType.bind(await Tml.doType(
+                descString,
+                {
+                    wait: 0,
+                    initialWait: 0,
+                    finalWait: 50,
+                    lineWait: 0,
+                    styles: 'white-space: pre-line;',
+                },
+                elContent
+            ));
+
+        }
     };
+
+    function onMouseClick(index: number, item: any){
+        if (activeProfile > -1){
+            TypeTerminal(item, index);
+        }
+        setActiveProfile(index);
+    }
+
+    function onMouseEnter(index: number, item: any){
+        if(activeProfile <= -1){
+            TypeTerminal(item, index);
+        }
+    }
 
     return (<>
         <AppContainer style={{transform: transform}}>
@@ -255,9 +292,9 @@ export default function App() {
                         {transition((style, item, state, index) => (
                             <div
                                 className={activeProfile === index ? 'BoxItemA' : 'BoxItem'}
-                                onClick={() => {setActiveProfile(index);}}
-                                onMouseEnter={() => TypeTerminal(item)}
-                                onMouseLeave={() => ClearContent(index)}
+                                onClick={() => onMouseClick(index, item)}
+                                onMouseEnter={() => onMouseEnter(index, item)}
+                                onMouseLeave={() => ClearContent(index, item)}
                             >
                                 <Box
                                     style={style}
