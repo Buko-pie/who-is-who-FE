@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, useLayoutEffect } from 'react'
 import { styled } from '@stitches/react'
 import { useTrail, animated, SpringValue } from '@react-spring/web'
-import { backgroundImage, backgroundRepeat, backgroundSize, zIndex } from 'styled-system'
 
 const AppContainer = styled('div', {
     width: '100%',

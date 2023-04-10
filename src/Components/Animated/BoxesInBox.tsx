@@ -78,6 +78,7 @@ const DescBox = styled.div`
     padding: 1rem;
     background-color: black;
     border-width: 2px;
+    overflow-y: auto;
 `
 
 const BoxesContainer = styled.div`
